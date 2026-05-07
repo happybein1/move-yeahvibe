@@ -1,0 +1,117 @@
+/* =============================================
+   Quick Sport App — data-en.js
+   English data: 50 intense exercises + 30 senior
+   ============================================= */
+
+const dataEN = {
+    ui: {
+        choose:       "CHOOSE YOUR PROGRAM",
+        intenseTitle: "Intense / Sport",
+        intenseDesc:  "Cardio, Push-ups, Burpees, Core...<br><i>(50 Exercises)</i>",
+        seniorTitle:  "Senior / Gentle",
+        seniorDesc:   "Mobility, Balance, Chair & Wall.<br><i>(30 Exercises)</i>",
+        change:         "⚙️ Change Program",
+        video:          "▶ Watch on YouTube",
+        videoSearching: "🔍 Finding video...",
+        next:           "NEXT EXERCISE",
+        ready:        "Ready?",
+        loading:      "Loading...",
+    },
+
+    // ------ 50 INTENSE EXERCISES ------
+    intense: [
+        // STRENGTH
+        { name: "Push-ups",             min: 10, max: 20, unit: "reps",      emoji: "🙇", type: "Strength" },
+        { name: "Wide Arm Push-ups",    min: 8,  max: 15, unit: "reps",      emoji: "↔️", type: "Strength" },
+        { name: "Diamond Push-ups",     min: 5,  max: 12, unit: "reps",      emoji: "💎", type: "Strength" },
+        { name: "Incline Push-ups",     min: 10, max: 20, unit: "reps",      emoji: "🛋️", type: "Strength" },
+        { name: "Pike Push-ups",        min: 8,  max: 12, unit: "reps",      emoji: "📐", type: "Strength" },
+        { name: "Shoulder Taps",        min: 20, max: 40, unit: "reps",      emoji: "👋", type: "Strength" },
+        { name: "Tricep Dips",          min: 10, max: 20, unit: "reps",      emoji: "🪑", type: "Arms"     },
+        { name: "Arm Circles",          min: 30, max: 60, unit: "sec",       emoji: "⭕", type: "Arms"     },
+        // LEGS
+        { name: "Squats",               min: 15, max: 30, unit: "reps",      emoji: "🦵", type: "Legs" },
+        { name: "Sumo Squats",          min: 15, max: 30, unit: "reps",      emoji: "🦀", type: "Legs" },
+        { name: "Jump Squats",          min: 10, max: 20, unit: "reps",      emoji: "🚀", type: "Legs" },
+        { name: "Wall Sit",             min: 30, max: 60, unit: "sec",       emoji: "🧱", type: "Legs" },
+        { name: "Forward Lunges",       min: 10, max: 20, unit: "reps",      emoji: "🚶", type: "Legs" },
+        { name: "Reverse Lunges",       min: 10, max: 20, unit: "reps",      emoji: "🔙", type: "Legs" },
+        { name: "Side Lunges",          min: 10, max: 20, unit: "reps",      emoji: "↔️", type: "Legs" },
+        { name: "Calf Raises",          min: 20, max: 40, unit: "reps",      emoji: "👠", type: "Legs" },
+        { name: "Glute Bridges",        min: 15, max: 30, unit: "reps",      emoji: "🌉", type: "Legs" },
+        { name: "Donkey Kicks",         min: 15, max: 25, unit: "reps",      emoji: "🐎", type: "Legs" },
+        // CORE
+        { name: "Plank",                min: 30, max: 60, unit: "sec",       emoji: "➖", type: "Core"        },
+        { name: "Side Plank",           min: 20, max: 45, unit: "sec/side",  emoji: "📐", type: "Core"        },
+        { name: "Crunches",             min: 15, max: 30, unit: "reps",      emoji: "🍫", type: "Core"        },
+        { name: "Bicycle Crunches",     min: 20, max: 40, unit: "reps",      emoji: "🚲", type: "Core"        },
+        { name: "Leg Raises",           min: 10, max: 20, unit: "reps",      emoji: "👖", type: "Core"        },
+        { name: "Russian Twists",       min: 20, max: 40, unit: "reps",      emoji: "🔄", type: "Core"        },
+        { name: "Flutter Kicks",        min: 20, max: 40, unit: "sec",       emoji: "🏊", type: "Core"        },
+        { name: "Mountain Climbers",    min: 20, max: 40, unit: "sec",       emoji: "⛰️", type: "Cardio/Core" },
+        { name: "Superman Hold",        min: 20, max: 40, unit: "sec",       emoji: "🦸", type: "Back"        },
+        // CARDIO
+        { name: "Jumping Jacks",        min: 30, max: 60, unit: "reps",      emoji: "🙆", type: "Cardio"     },
+        { name: "Burpees",              min: 5,  max: 15, unit: "reps",      emoji: "🥵", type: "Cardio"     },
+        { name: "High Knees",           min: 20, max: 40, unit: "sec",       emoji: "🏃", type: "Cardio"     },
+        { name: "Butt Kicks",           min: 20, max: 40, unit: "sec",       emoji: "👟", type: "Cardio"     },
+        { name: "Skaters",              min: 20, max: 40, unit: "reps",      emoji: "⛸️", type: "Cardio"     },
+        { name: "Inchworm",             min: 5,  max: 10, unit: "reps",      emoji: "🐛", type: "Cardio/Str" },
+        // STRETCHING / MOBILITY
+        { name: "Child's Pose",         min: 30, max: 60, unit: "sec",       emoji: "👶", type: "Yoga"    },
+        { name: "Cobra Stretch",        min: 20, max: 40, unit: "sec",       emoji: "🐍", type: "Yoga"    },
+        { name: "Cat-Cow",              min: 30, max: 60, unit: "sec",       emoji: "🐈", type: "Yoga"    },
+        { name: "Downward Dog",         min: 20, max: 40, unit: "sec",       emoji: "🐕", type: "Yoga"    },
+        { name: "Hamstring Stretch",    min: 20, max: 40, unit: "sec/leg",   emoji: "🦵", type: "Stretch" },
+        { name: "Quad Stretch",         min: 20, max: 40, unit: "sec/leg",   emoji: "🦩", type: "Stretch" },
+        { name: "Butterfly Stretch",    min: 30, max: 60, unit: "sec",       emoji: "🦋", type: "Stretch" },
+        { name: "Shoulder Stretch",     min: 20, max: 30, unit: "sec/arm",   emoji: "🫂", type: "Stretch" },
+        { name: "Tricep Stretch",       min: 20, max: 30, unit: "sec/arm",   emoji: "💪", type: "Stretch" },
+        { name: "Pigeon Pose",          min: 30, max: 60, unit: "sec/leg",   emoji: "🐦", type: "Stretch" },
+        { name: "Neck Rolls",           min: 20, max: 40, unit: "sec",       emoji: "💆", type: "Mobility" },
+        { name: "Torso Twists",         min: 20, max: 40, unit: "reps",      emoji: "🌪️", type: "Mobility" },
+        { name: "Toe Touches",          min: 10, max: 20, unit: "reps",      emoji: "🦶", type: "Mobility" },
+        { name: "Deep Squat Hold",      min: 20, max: 40, unit: "sec",       emoji: "🧘", type: "Mobility" },
+        { name: "Happy Baby",           min: 30, max: 60, unit: "sec",       emoji: "👶", type: "Yoga"    },
+        { name: "Doorframe Row",        min: 10, max: 20, unit: "reps",      emoji: "🚪", type: "Back"    },
+        { name: "Bear Crawl",           min: 20, max: 40, unit: "sec",       emoji: "🐻", type: "Core"    },
+    ],
+
+    // ------ 30 SENIOR EXERCISES ------
+    senior: [
+        // SEATED
+        { name: "Seated March",         min: 30, max: 60, unit: "sec",   emoji: "🪑", type: "Gentle Cardio", note: "Lift knees rhythmically while seated." },
+        { name: "Leg Extension",        min: 10, max: 15, unit: "reps",  emoji: "🦵", type: "Legs",           note: "Extend leg straight out." },
+        { name: "Shoulder Rolls",       min: 20, max: 40, unit: "sec",   emoji: "🙆", type: "Mobility",       note: "Large slow circles backwards." },
+        { name: "Ankle Flexion",        min: 10, max: 20, unit: "reps",  emoji: "🦶", type: "Mobility",       note: "Point toes, then flex them back." },
+        { name: "Torso Twist",          min: 10, max: 20, unit: "reps",  emoji: "🔄", type: "Back",           note: "Twist gently left and right." },
+        { name: "Arm Raises",           min: 10, max: 15, unit: "reps",  emoji: "🙋", type: "Arms",           note: "Lift hands towards the ceiling." },
+        { name: "Hand Clenches",        min: 10, max: 20, unit: "reps",  emoji: "✊", type: "Hands",          note: "Open wide, close tight." },
+        { name: "Side Bends",           min: 10, max: 20, unit: "reps",  emoji: "🎋", type: "Core",           note: "Lean gently to the side." },
+        { name: "Knee Tap",             min: 10, max: 20, unit: "reps",  emoji: "✖️", type: "Coordination",  note: "Right hand touches left knee." },
+        { name: "Seated Row",           min: 10, max: 20, unit: "reps",  emoji: "🛶", type: "Back",           note: "Pull elbows back, squeeze blades." },
+        // STANDING
+        { name: "Wall Push-ups",        min: 8,  max: 12, unit: "reps",  emoji: "🧱", type: "Strength", note: "Keep back straight, feet away from wall." },
+        { name: "Calf Raises",          min: 10, max: 20, unit: "reps",  emoji: "👠", type: "Balance",  note: "Hold the back of a chair." },
+        { name: "Chair Squats",         min: 5,  max: 10, unit: "reps",  emoji: "🛋️", type: "Legs",    note: "Stand up and sit down (no hands if possible)." },
+        { name: "Single Leg Balance",   min: 10, max: 20, unit: "sec",   emoji: "🦩", type: "Balance",  note: "Hold the wall if needed." },
+        { name: "Heel Curls",           min: 10, max: 20, unit: "reps",  emoji: "🔙", type: "Legs",    note: "Bring heel towards glute, standing." },
+        { name: "Side Leg Raise",       min: 8,  max: 15, unit: "reps",  emoji: "↔️", type: "Hips",    note: "Lift leg to side, torso upright." },
+        { name: "Hip Extension",        min: 10, max: 15, unit: "reps",  emoji: "🐎", type: "Glutes",  note: "Extend leg backwards." },
+        { name: "Mini Lunges",          min: 5,  max: 10, unit: "reps",  emoji: "🚶", type: "Legs",    note: "Small step forward, slight bend." },
+        { name: "Wall Sit",             min: 15, max: 30, unit: "sec",   emoji: "🧱", type: "Legs",    note: "Lean against wall, knees slightly bent." },
+        // MOBILITY & NECK
+        { name: "Neck Rotation",        min: 20, max: 30, unit: "sec",   emoji: "💆", type: "Relaxation", note: "Slowly, half circles." },
+        { name: "Head Turns (Yes/No)",  min: 10, max: 15, unit: "reps",  emoji: "🙂", type: "Neck",       note: "Look left, look right." },
+        { name: "Scapular Squeeze",     min: 10, max: 15, unit: "reps",  emoji: "👐", type: "Posture",    note: "Open chest, squeeze shoulder blades." },
+        { name: "Cat-Cow (Seated)",     min: 20, max: 40, unit: "sec",   emoji: "🐈", type: "Back",       note: "Round back, then arch back." },
+        { name: "Wrist Rotations",      min: 20, max: 30, unit: "sec",   emoji: "👋", type: "Hands",      note: "Rotate wrists in circles." },
+        // COORDINATION & WALKING
+        { name: "March in Place",       min: 30, max: 60, unit: "sec",   emoji: "🚶", type: "Cardio",       note: "Swing arms, lift knees." },
+        { name: "Side Steps",           min: 20, max: 40, unit: "sec",   emoji: "🦀", type: "Coordination", note: "Small steps to the side." },
+        { name: "Tandem Walk",          min: 10, max: 20, unit: "steps", emoji: "📏", type: "Balance",       note: "Heel-to-toe walking (like on a beam)." },
+        { name: "Arm Crosses",          min: 20, max: 40, unit: "sec",   emoji: "🙅", type: "Coordination", note: "Open arms wide, cross in front." },
+        { name: "Shadow Boxing",        min: 20, max: 40, unit: "sec",   emoji: "🥊", type: "Cardio",       note: "Light punches, don't overextend." },
+        { name: "Toe Taps",             min: 10, max: 20, unit: "reps",  emoji: "👟", type: "Coordination", note: "Tap toes forward alternately." },
+    ],
+};
