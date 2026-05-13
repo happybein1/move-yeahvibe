@@ -1,10 +1,12 @@
 /* =============================================
-   Quick Sport App — app.js
+   Workout YeahVibe — app.js
    Bilingual (FR/EN) + YouTube embed
+   videoId hardcodés dans data-fr.js / data-en.js
+   (fallback API si absent)
    ============================================= */
 
 const YT_API_KEY = 'AIzaSyAitxZc5k36HZeXNa24fy-lwXL0kvYekpM';
-const videoCache = {};   // "lang:name" → videoId
+const videoCache = {};   // "lang:name" → videoId (fallback cache only)
 
 let currentLang = 'fr';
 let currentMode = null;
@@ -21,7 +23,6 @@ function setLang(lang, restoreMode = false) {
     localStorage.setItem('qsa_lang', lang);
     document.documentElement.lang = lang;
 
-    // Sync all four lang buttons
     document.getElementById('btn-fr').classList.toggle('active',      lang === 'fr');
     document.getElementById('btn-en').classList.toggle('active',      lang === 'en');
     document.getElementById('btn-fr-home').classList.toggle('active', lang === 'fr');
@@ -36,6 +37,7 @@ function setLang(lang, restoreMode = false) {
     document.getElementById('txt-senior-desc').innerHTML     = ui.seniorDesc;
     document.getElementById('txt-change').textContent        = ui.change;
     document.getElementById('txt-next').textContent          = ui.next;
+    document.getElementById('txt-desc-label').textContent    = ui.descLabel || 'ℹ️ How to do it';
 
     if (restoreMode) {
         const saved = localStorage.getItem('qsa_mode');
@@ -47,18 +49,18 @@ function setLang(lang, restoreMode = false) {
 
 /* ─── SCREEN HELPERS ─────────────────────────── */
 function showWorkoutUI() {
-    document.getElementById('selection-screen').style.display  = 'none';
+    document.getElementById('selection-screen').style.display   = 'none';
     document.getElementById('lang-switcher-home').style.display = 'none';
-    document.getElementById('top-bar').style.display           = 'flex';
-    document.getElementById('workout-screen').style.display    = 'block';
-    document.getElementById('txt-next').style.display          = 'block';
+    document.getElementById('top-bar').style.display            = 'flex';
+    document.getElementById('workout-screen').style.display     = 'block';
+    document.getElementById('txt-next').style.display           = 'block';
 }
 
 function showSelectionUI() {
-    document.getElementById('workout-screen').style.display    = 'none';
-    document.getElementById('top-bar').style.display           = 'none';
-    document.getElementById('txt-next').style.display          = 'none';
-    document.getElementById('selection-screen').style.display  = 'flex';
+    document.getElementById('workout-screen').style.display     = 'none';
+    document.getElementById('top-bar').style.display            = 'none';
+    document.getElementById('txt-next').style.display           = 'none';
+    document.getElementById('selection-screen').style.display   = 'flex';
     document.getElementById('lang-switcher-home').style.display = 'flex';
     resetVideo();
 }
@@ -68,9 +70,8 @@ function setMode(mode) {
     currentMode = mode;
     localStorage.setItem('qsa_mode', mode);
 
-    const c = document.querySelector('body');
-    c.classList.remove('theme-intense', 'theme-senior');
-    c.classList.add(mode === 'intense' ? 'theme-intense' : 'theme-senior');
+    document.querySelector('body').classList.remove('theme-intense', 'theme-senior');
+    document.querySelector('body').classList.add(mode === 'intense' ? 'theme-intense' : 'theme-senior');
 
     showWorkoutUI();
     generateWorkout();
@@ -102,19 +103,73 @@ function generateWorkout() {
     document.getElementById('name').textContent  = exo.name;
     document.getElementById('reps').textContent  = count + ' ' + exo.unit;
 
-    const noteEl = document.getElementById('note');
-    if (exo.note) {
-        noteEl.textContent    = exo.note;
-        noteEl.style.display  = 'block';
+    // Description (collapsible) — always reset closed on new exercise
+    const descEl   = document.getElementById('desc');
+    const descBody = document.getElementById('desc-body');
+    const descArrow = document.getElementById('desc-arrow');
+    const toggle   = document.getElementById('desc-toggle');
+
+    descBody.classList.remove('open');
+    descArrow.classList.remove('open');
+
+    if (exo.desc) {
+        descEl.textContent  = exo.desc;
+        descEl.style.display = 'block';
+        toggle.style.display = 'flex';
     } else {
-        noteEl.style.display  = 'none';
+        descEl.textContent  = '';
+        descEl.style.display = 'none';
+        toggle.style.display = 'none';
     }
 
-    loadVideo(exo.name);
+    // Note (senior tip)
+    const noteEl = document.getElementById('note');
+    if (exo.note) {
+        noteEl.textContent   = exo.note;
+        noteEl.style.display = 'block';
+        toggle.style.display = 'flex'; // show toggle even if only note
+    } else {
+        noteEl.style.display = 'none';
+    }
+
+    // Use hardcoded videoId if available, otherwise call API
+    if (exo.videoId) {
+        embedVideo(exo.videoId);
+    } else {
+        loadVideoFromAPI(exo.name);
+    }
 }
 
-/* ─── YOUTUBE ────────────────────────────────── */
-async function loadVideo(exerciseName) {
+/* ─── COLLAPSIBLE DESC ───────────────────────── */
+function toggleDesc() {
+    const body  = document.getElementById('desc-body');
+    const arrow = document.getElementById('desc-arrow');
+    body.classList.toggle('open');
+    arrow.classList.toggle('open');
+}
+
+/* ─── YOUTUBE EMBED (hardcoded) ──────────────── */
+function embedVideo(videoId) {
+    resetVideo();
+    const iframe = document.getElementById('yt-iframe');
+    iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
+
+    // Always show a "Watch on YouTube" link below the iframe
+    // so users have an escape hatch if the video is blocked
+    const below = document.getElementById('yt-fallback-below');
+    const ui = (currentLang === 'fr' ? dataFR : dataEN).ui;
+    below.href        = `https://www.youtube.com/watch?v=${videoId}`;
+    below.textContent = ui.video || '▶ Watch on YouTube';
+
+    iframe.onload = function () {
+        below.style.display = 'block';
+    };
+
+    document.getElementById('video-embed').style.display = 'block';
+}
+
+/* ─── YOUTUBE API FALLBACK ───────────────────── */
+async function loadVideoFromAPI(exerciseName) {
     resetVideo();
     showLoader(true);
 
@@ -143,13 +198,6 @@ async function loadVideo(exerciseName) {
     }
 }
 
-function embedVideo(videoId) {
-    showLoader(false);
-    document.getElementById('yt-iframe').src =
-        `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
-    document.getElementById('video-embed').style.display = 'block';
-}
-
 function showLoader(on) {
     const ui = (currentLang === 'fr' ? dataFR : dataEN).ui;
     const el = document.getElementById('video-loader');
@@ -165,15 +213,18 @@ function showFallback(exerciseName) {
         ? `comment faire ${exerciseName} exercice`
         : `how to do ${exerciseName} workout`;
     const a  = document.getElementById('yt-fallback');
-    a.href        = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q);
-    a.textContent = ui.video || '▶ Watch on YouTube';
+    a.href          = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q);
+    a.textContent   = ui.video || '▶ Watch on YouTube';
     a.style.display = 'inline-block';
     document.getElementById('video-embed').style.display = 'block';
 }
 
 function resetVideo() {
     showLoader(false);
-    document.getElementById('yt-iframe').src    = '';
-    document.getElementById('video-embed').style.display  = 'none';
-    document.getElementById('yt-fallback').style.display  = 'none';
+    const iframe = document.getElementById('yt-iframe');
+    iframe.onload = null;
+    iframe.src                                                    = '';
+    document.getElementById('video-embed').style.display         = 'none';
+    document.getElementById('yt-fallback').style.display         = 'none';
+    document.getElementById('yt-fallback-below').style.display   = 'none';
 }

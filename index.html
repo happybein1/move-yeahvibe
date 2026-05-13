@@ -50,21 +50,39 @@
 
     <!-- WORKOUT SCREEN -->
     <div id="workout-screen">
+
+        <!-- Compact exercise card -->
         <div id="card">
-            <div class="emoji-display" id="emoji">⚡</div>
-            <div class="exercise-type" id="type"></div>
-            <div class="exercise-name" id="name"></div>
-            <div class="exercise-reps" id="reps"></div>
-            <div class="note-box"      id="note"></div>
+            <!-- Top row: emoji left, type+name+reps right -->
+            <div class="card-top">
+                <div class="emoji-display" id="emoji">⚡</div>
+                <div class="card-info">
+                    <div class="exercise-type" id="type"></div>
+                    <div class="exercise-name" id="name"></div>
+                    <div class="exercise-reps" id="reps"></div>
+                </div>
+            </div>
+
+            <!-- Collapsible description -->
+            <div class="desc-toggle" id="desc-toggle" onclick="toggleDesc()">
+                <span id="txt-desc-label"></span>
+                <span class="desc-arrow" id="desc-arrow">▼</span>
+            </div>
+            <div class="desc-body" id="desc-body">
+                <div class="desc-text"  id="desc"></div>
+                <div class="note-box"   id="note"></div>
+            </div>
         </div>
 
+        <!-- Video — right below the card -->
         <div id="video-section">
             <div id="video-loader" class="video-loader"></div>
             <div id="video-embed">
                 <iframe id="yt-iframe" src="" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen></iframe>
-                <a id="yt-fallback" href="#" target="_blank" class="yt-fallback-link"></a>
+                <a id="yt-fallback"       href="#" target="_blank" class="yt-fallback-link"></a>
+                <a id="yt-fallback-below" href="#" target="_blank" class="yt-fallback-link" style="display:none;"></a>
             </div>
         </div>
 
