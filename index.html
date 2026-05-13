@@ -53,9 +53,13 @@
 
         <!-- Compact exercise card -->
         <div id="card">
-            <!-- Top row: emoji left, type+name+reps right -->
+            <!-- Top row: emoji+svg left, type+name+reps right -->
             <div class="card-top">
-                <div class="emoji-display" id="emoji">⚡</div>
+                <div class="card-visual">
+                    <div class="emoji-display" id="emoji">⚡</div>
+                    <img id="exercise-img" class="exercise-img" src="" alt="" style="display:none"/>
+                    <div id="exercise-svg" class="exercise-svg"></div>
+                </div>
                 <div class="card-info">
                     <div class="exercise-type" id="type"></div>
                     <div class="exercise-name" id="name"></div>

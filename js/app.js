@@ -103,6 +103,27 @@ function generateWorkout() {
     document.getElementById('name').textContent  = exo.name;
     document.getElementById('reps').textContent  = count + ' ' + exo.unit;
 
+    // Show SVG illustration if available, else fall back to emoji
+    const emojiEl = document.getElementById('emoji');
+    const imgEl   = document.getElementById('exercise-img');
+    const svgEl   = document.getElementById('exercise-svg');
+
+    if (exo.img) {
+        imgEl.src             = exo.img;
+        imgEl.style.display   = 'block';
+        svgEl.style.display   = 'none';
+        emojiEl.style.display = 'none';
+    } else if (exo.svg) {
+        svgEl.innerHTML       = exo.svg;
+        svgEl.style.display   = 'flex';
+        imgEl.style.display   = 'none';
+        emojiEl.style.display = 'none';
+    } else {
+        imgEl.style.display   = 'none';
+        svgEl.style.display   = 'none';
+        emojiEl.style.display = 'block';
+    }
+
     // Description (collapsible) — always reset closed on new exercise
     const descEl   = document.getElementById('desc');
     const descBody = document.getElementById('desc-body');
