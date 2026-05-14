@@ -37,7 +37,6 @@ function setLang(lang, restoreMode = false) {
     document.getElementById('txt-senior-desc').innerHTML     = ui.seniorDesc;
     document.getElementById('txt-change').textContent        = ui.change;
     document.getElementById('txt-next').textContent          = ui.next;
-    document.getElementById('txt-desc-label').textContent    = ui.descLabel || 'ℹ️ How to do it';
 
     if (restoreMode) {
         const saved = localStorage.getItem('qsa_mode');
@@ -103,52 +102,10 @@ function generateWorkout() {
     document.getElementById('name').textContent  = exo.name;
     document.getElementById('reps').textContent  = count + ' ' + exo.unit;
 
-    // Show SVG illustration if available, else fall back to emoji
-    const emojiEl = document.getElementById('emoji');
-    const imgEl   = document.getElementById('exercise-img');
-    const svgEl   = document.getElementById('exercise-svg');
-
-    if (exo.img) {
-        imgEl.src             = exo.img;
-        imgEl.style.display   = 'block';
-        svgEl.style.display   = 'none';
-        emojiEl.style.display = 'none';
-    } else if (exo.svg) {
-        svgEl.innerHTML       = exo.svg;
-        svgEl.style.display   = 'flex';
-        imgEl.style.display   = 'none';
-        emojiEl.style.display = 'none';
-    } else {
-        imgEl.style.display   = 'none';
-        svgEl.style.display   = 'none';
-        emojiEl.style.display = 'block';
-    }
-
-    // Description (collapsible) — always reset closed on new exercise
-    const descEl   = document.getElementById('desc');
-    const descBody = document.getElementById('desc-body');
-    const descArrow = document.getElementById('desc-arrow');
-    const toggle   = document.getElementById('desc-toggle');
-
-    descBody.classList.remove('open');
-    descArrow.classList.remove('open');
-
-    if (exo.desc) {
-        descEl.textContent  = exo.desc;
-        descEl.style.display = 'block';
-        toggle.style.display = 'flex';
-    } else {
-        descEl.textContent  = '';
-        descEl.style.display = 'none';
-        toggle.style.display = 'none';
-    }
-
-    // Note (senior tip)
     const noteEl = document.getElementById('note');
     if (exo.note) {
         noteEl.textContent   = exo.note;
         noteEl.style.display = 'block';
-        toggle.style.display = 'flex'; // show toggle even if only note
     } else {
         noteEl.style.display = 'none';
     }
@@ -159,14 +116,6 @@ function generateWorkout() {
     } else {
         loadVideoFromAPI(exo.name);
     }
-}
-
-/* ─── COLLAPSIBLE DESC ───────────────────────── */
-function toggleDesc() {
-    const body  = document.getElementById('desc-body');
-    const arrow = document.getElementById('desc-arrow');
-    body.classList.toggle('open');
-    arrow.classList.toggle('open');
 }
 
 /* ─── YOUTUBE EMBED (hardcoded) ──────────────── */
