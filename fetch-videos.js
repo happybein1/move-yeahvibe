@@ -96,14 +96,40 @@ function serializeData(varName, data) {
     // intense block
     lines.push(`    intense: [`);
     for (const exo of data.intense) {
-        lines.push(`        { name: ${JSON.stringify(exo.name)}, min: ${exo.min}, max: ${exo.max}, unit: ${JSON.stringify(exo.unit)}, emoji: ${JSON.stringify(exo.emoji)}, type: ${JSON.stringify(exo.type)}${exo.videoId ? `, videoId: ${JSON.stringify(exo.videoId)}` : ''}${exo.note ? `, note: ${JSON.stringify(exo.note)}` : ''} },`);
+        const fields = [
+            `name: ${JSON.stringify(exo.name)}`,
+            `min: ${exo.min}`,
+            `max: ${exo.max}`,
+            `unit: ${JSON.stringify(exo.unit)}`,
+            `emoji: ${JSON.stringify(exo.emoji)}`,
+            `type: ${JSON.stringify(exo.type)}`,
+        ];
+        if (exo.desc)    fields.push(`desc: ${JSON.stringify(exo.desc)}`);
+        if (exo.note)    fields.push(`note: ${JSON.stringify(exo.note)}`);
+        if (exo.videoId) fields.push(`videoId: ${JSON.stringify(exo.videoId)}`);
+        if (exo.img)     fields.push(`img: ${JSON.stringify(exo.img)}`);
+        if (exo.svg)     fields.push(`svg: ${JSON.stringify(exo.svg)}`);
+        lines.push(`        { ${fields.join(', ')} },`);
     }
     lines.push(`    ],\n`);
 
     // senior block
     lines.push(`    senior: [`);
     for (const exo of data.senior) {
-        lines.push(`        { name: ${JSON.stringify(exo.name)}, min: ${exo.min}, max: ${exo.max}, unit: ${JSON.stringify(exo.unit)}, emoji: ${JSON.stringify(exo.emoji)}, type: ${JSON.stringify(exo.type)}${exo.videoId ? `, videoId: ${JSON.stringify(exo.videoId)}` : ''}${exo.note ? `, note: ${JSON.stringify(exo.note)}` : ''} },`);
+        const fields = [
+            `name: ${JSON.stringify(exo.name)}`,
+            `min: ${exo.min}`,
+            `max: ${exo.max}`,
+            `unit: ${JSON.stringify(exo.unit)}`,
+            `emoji: ${JSON.stringify(exo.emoji)}`,
+            `type: ${JSON.stringify(exo.type)}`,
+        ];
+        if (exo.desc)    fields.push(`desc: ${JSON.stringify(exo.desc)}`);
+        if (exo.note)    fields.push(`note: ${JSON.stringify(exo.note)}`);
+        if (exo.videoId) fields.push(`videoId: ${JSON.stringify(exo.videoId)}`);
+        if (exo.img)     fields.push(`img: ${JSON.stringify(exo.img)}`);
+        if (exo.svg)     fields.push(`svg: ${JSON.stringify(exo.svg)}`);
+        lines.push(`        { ${fields.join(', ')} },`);
     }
     lines.push(`    ],`);
     lines.push(`};`);
@@ -136,6 +162,14 @@ async function main() {
                     : `how to do ${exo.name} ${suffix}`;
 
                 process.stdout.write(`  [${total}] ${exo.name} ... `);
+
+                // Skip if already has a videoId
+                if (exo.videoId) {
+                    found++;
+                    console.log(`⏭ skipped (already exists)`);
+                    continue;
+                }
+
                 const videoId = await fetchVideoId(query);
 
                 if (videoId) {
