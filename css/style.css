@@ -1,5 +1,5 @@
 /* =============================================
-   Quick Sport App — style.css
+   Workout YeahVibe — style.css
    ============================================= */
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,7 +14,7 @@ body {
 
 /* ── TOP BAR (workout only, fixed) ─────────────────── */
 #top-bar {
-    display: none;                  /* JS sets to flex */
+    display: none;
     position: fixed;
     top: 0; left: 0; right: 0;
     height: 56px;
@@ -40,10 +40,7 @@ body {
 .change-btn:active { background: rgba(255,255,255,0.2); }
 
 /* ── LANG BUTTONS ───────────────────────────────────── */
-.lang-group {
-    display: flex;
-    gap: 6px;
-}
+.lang-group { display: flex; gap: 6px; }
 
 #lang-switcher-home {
     position: fixed;
@@ -131,8 +128,8 @@ body {
 
 /* ── WORKOUT SCREEN ─────────────────────────────────── */
 #workout-screen {
-    display: none;                  /* JS sets to block */
-    padding: 68px 14px 80px;        /* top: topbar | bottom: main-btn */
+    display: none;
+    padding: 68px 14px 100px;
 }
 
 /* Exercise card */
@@ -249,9 +246,29 @@ body {
 }
 .yt-fallback-link:active { background: #2d1515; }
 
+/* ── FOOTER ─────────────────────────────────────────── */
+#footer {
+    position: fixed;
+    bottom: 58px;
+    left: 0; right: 0;
+    text-align: center;
+    z-index: 99;
+    pointer-events: none;
+}
+#footer a {
+    pointer-events: all;
+    font-size: 0.68rem;
+    color: #2a2a2a;
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    text-transform: lowercase;
+    transition: color 0.2s;
+}
+#footer a:hover { color: #555; }
+
 /* ── MAIN BUTTON (sticky bottom) ───────────────────── */
 .main-btn {
-    display: none;                  /* JS sets to block */
+    display: none;
     position: fixed;
     bottom: 0; left: 0; right: 0;
     width: 100%;
@@ -277,7 +294,7 @@ body {
 .theme-senior  .exercise-name { color: #81c784; }
 .theme-senior  .main-btn      { background: #81c784; }
 
-/* ── RESPONSIVE tweaks ──────────────────────────────── */
+/* ── RESPONSIVE ─────────────────────────────────────── */
 @media (min-width: 480px) {
     #top-bar, #workout-screen, #selection-screen, #lang-switcher-home {
         max-width: 480px;

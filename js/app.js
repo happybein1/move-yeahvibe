@@ -1,23 +1,18 @@
 /* =============================================
    Workout YeahVibe — app.js
-   Bilingual (FR/EN) + YouTube embed
-   videoId hardcodés dans data-fr.js / data-en.js
-   (fallback API si absent)
    ============================================= */
 
 const YT_API_KEY = 'AIzaSyAitxZc5k36HZeXNa24fy-lwXL0kvYekpM';
-const videoCache = {};   // "lang:name" → videoId (fallback cache only)
+const videoCache = {};
 
 let currentLang = 'fr';
 let currentMode = null;
 
-/* ─── INIT ───────────────────────────────────── */
 window.onload = function () {
     const lang = localStorage.getItem('qsa_lang') || 'fr';
     setLang(lang, true);
 };
 
-/* ─── LANGUAGE ───────────────────────────────── */
 function setLang(lang, restoreMode = false) {
     currentLang = lang;
     localStorage.setItem('qsa_lang', lang);
@@ -46,7 +41,6 @@ function setLang(lang, restoreMode = false) {
     }
 }
 
-/* ─── SCREEN HELPERS ─────────────────────────── */
 function showWorkoutUI() {
     document.getElementById('selection-screen').style.display   = 'none';
     document.getElementById('lang-switcher-home').style.display = 'none';
@@ -64,14 +58,11 @@ function showSelectionUI() {
     resetVideo();
 }
 
-/* ─── MODE ───────────────────────────────────── */
 function setMode(mode) {
     currentMode = mode;
     localStorage.setItem('qsa_mode', mode);
-
     document.querySelector('body').classList.remove('theme-intense', 'theme-senior');
     document.querySelector('body').classList.add(mode === 'intense' ? 'theme-intense' : 'theme-senior');
-
     showWorkoutUI();
     generateWorkout();
 }
@@ -83,7 +74,6 @@ function clearMode() {
     showSelectionUI();
 }
 
-/* ─── EXERCISE GENERATOR ─────────────────────── */
 function generateWorkout() {
     const data = currentLang === 'fr' ? dataFR : dataEN;
     const list = currentMode === 'intense' ? data.intense : data.senior;
@@ -110,7 +100,6 @@ function generateWorkout() {
         noteEl.style.display = 'none';
     }
 
-    // Use hardcoded videoId if available, otherwise call API
     if (exo.videoId) {
         embedVideo(exo.videoId);
     } else {
@@ -118,27 +107,20 @@ function generateWorkout() {
     }
 }
 
-/* ─── YOUTUBE EMBED (hardcoded) ──────────────── */
 function embedVideo(videoId) {
     resetVideo();
     const iframe = document.getElementById('yt-iframe');
     iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
 
-    // Always show a "Watch on YouTube" link below the iframe
-    // so users have an escape hatch if the video is blocked
     const below = document.getElementById('yt-fallback-below');
-    const ui = (currentLang === 'fr' ? dataFR : dataEN).ui;
+    const ui    = (currentLang === 'fr' ? dataFR : dataEN).ui;
     below.href        = `https://www.youtube.com/watch?v=${videoId}`;
     below.textContent = ui.video || '▶ Watch on YouTube';
-
-    iframe.onload = function () {
-        below.style.display = 'block';
-    };
+    iframe.onload = function () { below.style.display = 'block'; };
 
     document.getElementById('video-embed').style.display = 'block';
 }
 
-/* ─── YOUTUBE API FALLBACK ───────────────────── */
 async function loadVideoFromAPI(exerciseName) {
     resetVideo();
     showLoader(true);
@@ -154,7 +136,6 @@ async function loadVideoFromAPI(exerciseName) {
         const url  = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoEmbeddable=true&maxResults=1&q=${encodeURIComponent(q)}&key=${YT_API_KEY}`;
         const res  = await fetch(url);
         const json = await res.json();
-
         if (json.items && json.items.length > 0) {
             const id = json.items[0].id.videoId;
             videoCache[key] = id;
@@ -163,7 +144,6 @@ async function loadVideoFromAPI(exerciseName) {
             showFallback(exerciseName);
         }
     } catch (e) {
-        console.error('YT API error', e);
         showFallback(exerciseName);
     }
 }
@@ -193,8 +173,8 @@ function resetVideo() {
     showLoader(false);
     const iframe = document.getElementById('yt-iframe');
     iframe.onload = null;
-    iframe.src                                                    = '';
-    document.getElementById('video-embed').style.display         = 'none';
-    document.getElementById('yt-fallback').style.display         = 'none';
-    document.getElementById('yt-fallback-below').style.display   = 'none';
+    iframe.src = '';
+    document.getElementById('video-embed').style.display       = 'none';
+    document.getElementById('yt-fallback').style.display       = 'none';
+    document.getElementById('yt-fallback-below').style.display = 'none';
 }
