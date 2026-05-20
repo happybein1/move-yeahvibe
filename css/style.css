@@ -246,6 +246,24 @@ body {
 }
 .yt-fallback-link:active { background: #2d1515; }
 
+/* ── HAPPYBEIN ICON ─────────────────────────────── */
+.hb-icon {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+}
+.hb-icon:hover { opacity: 1; }
+.hb-icon img {
+    height: 28px;
+    width: 28px;
+    object-fit: contain;
+}
+.hb-icon-home {
+    margin-right: 4px;
+}
+
 /* ── FOOTER ─────────────────────────────────────────── */
 #footer {
     position: fixed;
