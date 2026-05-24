@@ -2,10 +2,70 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout YeahVibe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-    <!-- Google Analytics -->
+    <!-- ═══ VERSION ═══ -->
+    <!-- v1.3.0 — 2025-05 | favicon + OG image + SEO + Happybein icon -->
+
+    <!-- ═══ PRIMARY SEO ═══ -->
+    <title>Workout YeahVibe — Coach Fitness Personnel FR/EN</title>
+    <meta name="description" content="Workout YeahVibe : votre coach fitness personnel gratuit. 50 exercices intenses + 30 exercices seniors avec vidéos guidées. Bilingue FR/EN. Aucune inscription requise.">
+    <meta name="keywords" content="workout, fitness, exercice, sport, coach, senior, cardio, musculation, yoga, stretching, gratuit, français, english">
+    <meta name="author" content="HappyBein — happybein.com">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#121212">
+    <link rel="canonical" href="https://workout.yeahvibe.com/">
+
+    <!-- ═══ OPEN GRAPH (Facebook, LinkedIn, WhatsApp) ═══ -->
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="https://workout.yeahvibe.com/">
+    <meta property="og:title"       content="Workout YeahVibe — Coach Fitness Personnel">
+    <meta property="og:description" content="50 exercices intenses + 30 exercices seniors avec vidéos guidées. Bilingue FR/EN. 100% gratuit, aucune inscription.">
+    <meta property="og:image"       content="https://workout.yeahvibe.com/images/og-image.png">
+    <meta property="og:image:width"  content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt"   content="Workout YeahVibe app screenshot">
+    <meta property="og:locale"      content="fr_FR">
+    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="og:site_name"   content="Workout YeahVibe">
+
+    <!-- ═══ TWITTER CARD ═══ -->
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:url"         content="https://workout.yeahvibe.com/">
+    <meta name="twitter:title"       content="Workout YeahVibe — Coach Fitness Personnel">
+    <meta name="twitter:description" content="50 exercices intenses + 30 exercices seniors avec vidéos guidées. Bilingue FR/EN. Gratuit.">
+    <meta name="twitter:image"       content="https://workout.yeahvibe.com/images/og-image.png">
+
+    <!-- ═══ FAVICON ═══ -->
+    <link rel="icon"             type="image/svg+xml"  href="favicon.svg">
+    <link rel="alternate icon"   type="image/png"      href="favicon.png">
+    <link rel="apple-touch-icon"                       href="images/happybein.png">
+
+    <!-- ═══ PWA / MOBILE ═══ -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Workout YeahVibe">
+    <meta name="application-name" content="Workout YeahVibe">
+
+    <!-- ═══ STRUCTURED DATA ═══ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Workout YeahVibe",
+        "url": "https://workout.yeahvibe.com",
+        "description": "Personal fitness coach app with 50 intense and 30 senior exercises, video guided, bilingual FR/EN.",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+        "author": { "@type": "Organization", "name": "HappyBein", "url": "https://happybein.com" },
+        "inLanguage": ["fr", "en"],
+        "screenshot": "https://workout.yeahvibe.com/images/og-image.png"
+    }
+    </script>
+
+    <!-- ═══ GOOGLE ANALYTICS ═══ -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TXTCCH1ZGY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -21,57 +81,57 @@
     <!-- TOP BAR — workout screen only -->
     <div id="top-bar">
         <button class="change-btn" id="txt-change" onclick="clearMode()"></button>
-        <a href="https://happybein.com" target="_blank" class="hb-icon">
-            <img src="images/happybein.png" alt="Happybein"/>
+        <a href="https://happybein.com" target="_blank" rel="noopener" class="hb-icon" aria-label="Happybein">
+            <img src="images/happybein.png" alt="Happybein logo" width="28" height="28"/>
         </a>
         <div class="lang-group">
-            <button id="btn-fr" class="lang-btn active" onclick="setLang('fr')">🇫🇷 FR</button>
-            <button id="btn-en" class="lang-btn"        onclick="setLang('en')">🇬🇧 EN</button>
+            <button id="btn-fr" class="lang-btn active" onclick="setLang('fr')" aria-label="Français">🇫🇷 FR</button>
+            <button id="btn-en" class="lang-btn"        onclick="setLang('en')" aria-label="English">🇬🇧 EN</button>
         </div>
     </div>
 
     <!-- LANG SWITCHER — selection screen only -->
     <div id="lang-switcher-home">
-        <a href="https://happybein.com" target="_blank" class="hb-icon hb-icon-home">
-            <img src="images/happybein.png" alt="Happybein"/>
+        <a href="https://happybein.com" target="_blank" rel="noopener" class="hb-icon hb-icon-home" aria-label="Happybein">
+            <img src="images/happybein.png" alt="Happybein logo" width="28" height="28"/>
         </a>
-        <button id="btn-fr-home" class="lang-btn active" onclick="setLang('fr')">🇫🇷 FR</button>
-        <button id="btn-en-home" class="lang-btn"        onclick="setLang('en')">🇬🇧 EN</button>
+        <button id="btn-fr-home" class="lang-btn active" onclick="setLang('fr')" aria-label="Français">🇫🇷 FR</button>
+        <button id="btn-en-home" class="lang-btn"        onclick="setLang('en')" aria-label="English">🇬🇧 EN</button>
     </div>
 
     <!-- SELECTION SCREEN -->
-    <div id="selection-screen">
-        <h2 id="txt-choose"></h2>
-        <button class="mode-btn btn-intense" onclick="setMode('intense')">
-            <span class="mode-icon">🔥</span>
+    <div id="selection-screen" role="main">
+        <h1 id="txt-choose"></h1>
+        <button class="mode-btn btn-intense" onclick="setMode('intense')" aria-label="Mode intense">
+            <span class="mode-icon" aria-hidden="true">🔥</span>
             <span class="mode-title" id="txt-intense-title"></span>
             <span class="mode-desc"  id="txt-intense-desc"></span>
         </button>
-        <button class="mode-btn btn-senior" onclick="setMode('senior')">
-            <span class="mode-icon">🌿</span>
+        <button class="mode-btn btn-senior" onclick="setMode('senior')" aria-label="Mode senior">
+            <span class="mode-icon" aria-hidden="true">🌿</span>
             <span class="mode-title" id="txt-senior-title"></span>
             <span class="mode-desc"  id="txt-senior-desc"></span>
         </button>
     </div>
 
     <!-- WORKOUT SCREEN -->
-    <div id="workout-screen">
+    <div id="workout-screen" role="main" aria-live="polite">
         <div id="card">
-            <div class="emoji-display" id="emoji">⚡</div>
+            <div class="emoji-display" id="emoji" aria-hidden="true">⚡</div>
             <div class="exercise-type" id="type"></div>
-            <div class="exercise-name" id="name"></div>
+            <h2 class="exercise-name" id="name"></h2>
             <div class="exercise-reps" id="reps"></div>
             <div class="note-box"      id="note"></div>
         </div>
 
-        <div id="video-section">
-            <div id="video-loader" class="video-loader"></div>
+        <div id="video-section" aria-label="Exercise video">
+            <div id="video-loader" class="video-loader" role="status"></div>
             <div id="video-embed">
-                <iframe id="yt-iframe" src="" frameborder="0"
+                <iframe id="yt-iframe" src="" frameborder="0" title="Exercise video"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-                <a id="yt-fallback"       href="#" target="_blank" class="yt-fallback-link"></a>
-                <a id="yt-fallback-below" href="#" target="_blank" class="yt-fallback-link" style="display:none;"></a>
+                    allowfullscreen loading="lazy"></iframe>
+                <a id="yt-fallback"       href="#" target="_blank" rel="noopener" class="yt-fallback-link"></a>
+                <a id="yt-fallback-below" href="#" target="_blank" rel="noopener" class="yt-fallback-link" style="display:none;"></a>
             </div>
         </div>
     </div>

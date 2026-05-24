@@ -1,6 +1,14 @@
 /* =============================================
    Workout YeahVibe — app.js
+   v1.3.0 — 2025-05
+   Changelog:
+   v1.3.0 — favicon, OG image, SEO, Happybein icon, accessibility
+   v1.2.0 — collapsible description, compact card layout
+   v1.1.0 — YouTube video embed, hardcoded videoIds
+   v1.0.0 — initial bilingual FR/EN release
    ============================================= */
+
+const APP_VERSION = '1.3.0';
 
 const YT_API_KEY = 'AIzaSyAitxZc5k36HZeXNa24fy-lwXL0kvYekpM';
 const videoCache = {};
